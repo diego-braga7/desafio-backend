@@ -19,7 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('client')->group( function () {
-    Route::post('pdv', [PdvController::class, 'store']);
+    Route::post('pdv', [PdvController::class, 'store'])->name('pdv.store');
+    Route::get('pdv/{id}', [PdvController::class, 'show'])->name('pdv.show');
+    Route::get('pdv', [PdvController::class, 'index'])->name('pdv.index');
+    Route::put('pdv/{id}', [PdvController::class, 'update'])->name('pdv.update');
 });
 
 Route::get('/greeting', function () {

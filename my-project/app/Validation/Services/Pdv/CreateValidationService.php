@@ -1,9 +1,9 @@
 <?php
 namespace App\Validation\Services\Pdv;
 
-use App\Validation\Contracts\AbstractValidation;
+use App\Validation\Services\Pdv\Contracts\ACreateValidationService;
 
-class CreateValidationService extends AbstractValidation
+class CreateValidationService extends ACreateValidationService
 {
 
     protected function getRules(): array

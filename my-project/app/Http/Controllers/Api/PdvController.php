@@ -6,28 +6,58 @@ use App\Http\Controllers\Contract\AbstractRestController;
 use App\Http\Controllers\Contract\IRestController;
 use App\Services\Contract\AbstractRestService;
 use App\Validation\Contracts\AbstractValidation;
+use App\Validation\Services\Pdv\Contracts\ACreateValidationService;
+use App\Validation\Services\Pdv\Contracts\AUpdateValidationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PdvController extends AbstractRestController implements IRestController
 {
+    private AbstractRestService $create;
+    private AbstractRestService $update;
+    private AbstractRestService $get;
 
     public function __construct(
-        private readonly AbstractRestService $create,
-        protected AbstractValidation $validation,
-        protected Request            $request,
+        private readonly ACreateValidationService $validationCreate,
+        private readonly AUpdateValidationService $validationUpdate,
+        AbstractRestService ...$abstractRestService
     )
     {
-        parent::__construct($this->validation, $this->request);
+        $this->create = current($abstractRestService);
+        next($abstractRestService);
+        $this->update = current($abstractRestService);
+        next($abstractRestService);
+        $this->get = current($abstractRestService);
     }
 
     public function store(Request $request): JsonResponse|JsonResource
     {
-        if($this->validator->fails()){
-            return $this->jsonResponse([$this->validator->errors()], HttpResponses::UNPROCESSABLE_ENTITY);
-        }
+        $validator = $this->validationCreate->make($request->all());
 
-        return $this->create->dispatch($this->validator->validate());
+        if($validator->fails()){
+            return $this->jsonResponse([$validator->errors()], HttpResponses::UNPROCESSABLE_ENTITY);
+        }
+        return $this->create->dispatch($validator->validate());
+    }
+
+    public function index(Request $request): JsonResponse|JsonResource
+    {
+        return $this->get->dispatch($request->all());
+    }
+
+    public function show(Request $request, mixed $id): JsonResponse|JsonResource
+    {
+        return $this->get->dispatch($request->all(), $id);
+    }
+
+    public function update(Request $request, mixed $id): JsonResponse|JsonResource
+    {
+        $data = $request->except(['id','cnpj']);
+        $validator = $this->validationUpdate->requireSometimes()->make($data);
+        if($validator->fails()){
+            return $this->jsonResponse([$validator->errors()], HttpResponses::UNPROCESSABLE_ENTITY);
+        }
+        return $this->update->dispatch($validator->validate(), $id);
     }
 }

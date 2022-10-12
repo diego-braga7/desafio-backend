@@ -12,16 +12,6 @@ use Illuminate\Validation\Validator;
 
 class AbstractRestController extends IlluminateRoutingController
 {
-    protected Validator $validator;
-
-    public function __construct(
-        protected AbstractValidation $validation,
-        protected Request $request,
-    )
-    {
-       $this->validator = $this->validation->make($this->request->all());
-    }
-
     use ValidatesRequests;
 
 

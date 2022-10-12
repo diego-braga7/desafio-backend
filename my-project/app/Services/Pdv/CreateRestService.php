@@ -8,7 +8,7 @@ use App\Services\Contract\AbstractRestService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class createRestService extends AbstractRestService
+class CreateRestService extends AbstractRestService
 {
     public function __construct()
     {
