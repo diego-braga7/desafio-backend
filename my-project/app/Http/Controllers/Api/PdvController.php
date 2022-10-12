@@ -5,7 +5,6 @@ use App\Enum\HttpResponses;
 use App\Http\Controllers\Contract\AbstractRestController;
 use App\Http\Controllers\Contract\IRestController;
 use App\Services\Contract\AbstractRestService;
-use App\Validation\Contracts\AbstractValidation;
 use App\Validation\Services\Pdv\Contracts\ACreateValidationService;
 use App\Validation\Services\Pdv\Contracts\AUpdateValidationService;
 use Illuminate\Http\JsonResponse;
