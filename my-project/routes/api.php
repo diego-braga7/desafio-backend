@@ -31,6 +31,4 @@ Route::middleware('client')->group( function () {
     Route::put('venda/{id}', [VendaController::class, 'update'])->name('venda.update');
 });
 
-Route::get('/greeting', function () {
-    return 'Hello World';
-});
+
