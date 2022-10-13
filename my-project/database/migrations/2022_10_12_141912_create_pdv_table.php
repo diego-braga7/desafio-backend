@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('Pdv', function (Blueprint $table) {
+        Schema::create('pdv', function (Blueprint $table) {
             $table->id();
             $table->string('nome_responsavel', '100');
             $table->string('nome_fantasia', '100');

@@ -5,7 +5,6 @@ namespace App\Services\Pdv;
 use App\Enum\HttpResponses;
 use App\Models\Pdv;
 use App\Services\Contract\AbstractRestService;
-use App\Services\Pdv\Contracts\IUpdateRestService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
