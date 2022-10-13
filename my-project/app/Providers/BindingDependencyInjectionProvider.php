@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Http\Controllers\Api\PdvController;
 use App\Http\Controllers\Api\VendaController;
+use App\Repository\Contracts\IVendas;
+use App\Repository\Venda;
 use App\Services\Contract\AbstractRestService;
 use App\Services\Contract\IValidationRequest;
 use App\Services\Pdv\CreateRestService;
@@ -63,5 +65,7 @@ class BindingDependencyInjectionProvider extends ServiceProvider
         $this->app->bind(AUpdateValidationServiceVenda::class, UpdateValidationServiceVenda::class);
         $this->app->bind(IHttp::class, Http::class);
         $this->app->bind(IValidateService::class, ValidateService::class);
+
+        $this->app->bind(IVendas::class, Venda::class);
     }
 }

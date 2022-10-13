@@ -8,6 +8,7 @@ use App\Enum\HttpResponses;
 use App\Enum\StatusVenda;
 use App\Models\Pdv;
 use App\Models\ProdutosVenda;
+use App\Repository\Contracts\IVendas;
 use App\Services\Contract\AbstractRestService;
 use App\Services\Produto\Contract\IValidateService;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +19,8 @@ use Illuminate\Support\Facades\DB;
 class CreateRestService extends AbstractRestService
 {
     public function __construct(
-        private IValidateService $produto
+        private IValidateService $produto,
+        private IVendas $vendasRepository
     )
     {
     }
@@ -46,7 +48,7 @@ class CreateRestService extends AbstractRestService
            return $this->jsonResponse("Limite estourado.", HttpResponses::UNPROCESSABLE_ENTITY);
        }
 
-        $vendaFinal = new Venda(\App\Models\Venda::create($venda->toArray()));
+        $vendaFinal = $this->vendasRepository->create($venda->toArray());
 
 
         $produtosVendasEntity->map(function (ProdutoVenda $produtoVenda) use ($vendaFinal) {
