@@ -1,9 +1,9 @@
 <?php
 namespace App\DomainModel;
 
-use Nette\Utils\Reflection;
+use App\DomainModel\Contracts\AbstractDomainModel;
 
-class ProdutoVenda
+class ProdutoVenda extends  AbstractDomainModel
 {
     private int $id;
     private int $vendaId;
@@ -27,25 +27,19 @@ class ProdutoVenda
         }
     }
 
-    protected function  autoPopulate($data){
-        $reflection = new \ReflectionClass(self::class);
-        foreach ($reflection->getProperties() as $attribute){
-            if(!isset($data[$this->camel_to_snake($attribute->getName())])){
-                continue;
-            }
-            $set = "set".ucfirst($this->snakeToCamel($attribute->getName()));
-            $this->$set($data[$this->camel_to_snake($attribute->getName())]);
-        }
-    }
-    function camel_to_snake($input)
+    public function toArray(): array
     {
-        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
+        return [
+            'id' => $this->id,
+            'venda_id' => $this->vendaId,
+            'produto_id' => $this->produtoId,
+            'descricao' => $this->descricao,
+            'quantidade' => $this->quantidade,
+            'valor_unitario' => $this->valorUnitario,
+            'valor_total' => $this->valorTotal,
+        ];
     }
 
-    function snakeToCamel($input)
-    {
-        return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $input))));
-    }
     /**
      * @return int
      */
@@ -171,6 +165,7 @@ class ProdutoVenda
         $this->descricao = $descricao;
         return $this;
     }
+
 
 
 }
