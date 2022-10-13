@@ -11,7 +11,6 @@ class Venda extends AbstractDomainModel
     private int $pdvId;
     private float $valor;
     private string $status;
-    private bool $quitado;
 
     public function __construct(array $data = null)
     {
@@ -19,7 +18,6 @@ class Venda extends AbstractDomainModel
         $this->pdvId = 0;
         $this->valor = 0.0;
         $this->status = StatusVenda::AGUARDANDO->value;
-        $this->quitado = false;
         if(!is_null($data)){
             $this->autoPopulate($data);
         }
@@ -31,7 +29,6 @@ class Venda extends AbstractDomainModel
             'pdv_id' => $this->pdvId,
             'valor' => $this->valor,
             'status' => $this->status,
-            'quitado' => $this->quitado,
         ];
     }
 
@@ -91,23 +88,6 @@ class Venda extends AbstractDomainModel
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isQuitado(): bool
-    {
-        return $this->quitado;
-    }
-
-    /**
-     * @param bool $quitado
-     * @return Venda
-     */
-    public function setQuitado(bool $quitado): Venda
-    {
-        $this->quitado = $quitado;
-        return $this;
-    }
 
     /**
      * @return int

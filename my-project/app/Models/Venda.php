@@ -18,11 +18,9 @@ class Venda extends Model
         'pdv_id',
         'valor',
         'status',
-        'quitado',
     ];
 
     protected $casts = [
-        'quitado' => 'boolean'
     ];
 
     public function pdv() : HasOne

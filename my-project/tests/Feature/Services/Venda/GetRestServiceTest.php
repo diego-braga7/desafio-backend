@@ -4,7 +4,6 @@ namespace Tests\Feature\Services\Venda;
 
 use App\DomainModel\Venda;
 use App\Enum\HttpResponses;
-use App\Enum\StatusVenda;
 use App\Repository\Contracts\IVendas;
 use App\Services\Venda\GetRestService;
 use Tests\TestCase;
@@ -28,7 +27,6 @@ class GetRestServiceTest extends TestCase
         'pdv_id' => 1,
         'valor' => 10.0,
         'status' => 'AGUARDANDO_PAGAMENTO',
-        'quitado' => false
     ];
 
 

@@ -31,8 +31,7 @@ class CreateRestServiceTest extends TestCase
         'id' => 1,
         'pdv_id' => 1,
         'valor' => 10.0,
-        'status' => 'AGUARDANDO_PAGAMENTO',
-        'quitado' => false
+        'status' => 'AGUARDANDO_PAGAMENTO'
     ];
 
     public function makeHttpProdutos(): IValidateService
