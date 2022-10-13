@@ -53,6 +53,20 @@ class Venda implements IVendas
         return new VendaEntity($venda->toArray());
     }
 
+    public function getByStatus(string $status) : CollectionSupport
+    {
+       $vendas = VendaEloquent::where('status', $status)
+            ->get();
+      return $this->mapToDomainModel($vendas);
+    }
+
+    private function mapToDomainModel($vendas) : CollectionSupport
+    {
+        return $vendas->map(function($venda){
+            return new VendaEntity($venda->toArray());
+        });
+    }
+
     public function all() : CollectionSupport
     {
         /**

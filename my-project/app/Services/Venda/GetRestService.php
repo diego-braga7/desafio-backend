@@ -18,12 +18,18 @@ class GetRestService extends AbstractRestService
     public function dispatch(array $data, mixed $id = null): JsonResponse|JsonResource
     {
         if(is_null($id)){
-            return JsonResource::collection($this->vendasRepository->all()->toArray(), HttpResponses::OK);
+            return JsonResource::collection($this->getCollection($data)->toArray());
         }
         $venda = $this->vendasRepository->find($id);
         if(is_null($venda)){
             return $this->jsonResponse(null, HttpResponses::NOT_FOUND);
         }
-        return $this->jsonResponse($venda->toArray(), HttpResponses::OK);
+        return $this->jsonResponse($venda->toArray());
+    }
+
+    private function getCollection(array $data)
+    {
+        return isset($data['status']) ? $this->vendasRepository->getByStatus($data['status']) :
+            $this->vendasRepository->all();
     }
 }

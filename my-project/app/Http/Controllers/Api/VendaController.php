@@ -43,7 +43,8 @@ class VendaController extends AbstractRestController implements IRestController
 
     public function index(Request $request): JsonResponse|JsonResource
     {
-        return $this->get->dispatch($request->all());
+        $data = $request->only(['status']);
+        return $this->get->dispatch($data);
     }
 
     public function show(Request $request, mixed $id): JsonResponse|JsonResource

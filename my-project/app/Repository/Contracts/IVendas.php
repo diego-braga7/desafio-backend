@@ -18,4 +18,6 @@ interface IVendas
     public function find(int $id): ?VendaEntity;
 
     public function all() : CollectionSupport;
+
+    public function getByStatus(string $status) : CollectionSupport;
 }
