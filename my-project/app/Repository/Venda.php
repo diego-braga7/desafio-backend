@@ -16,11 +16,10 @@ class Venda implements IVendas
     public function getDebitValue(int $pdvId): float
     {
         $debit = DB::select("
-            SELECT SUM(valor) AS debit FROM venda WHERE pdv_id = :pdvId AND `status` != :status AND quitado = :quitado
+            SELECT SUM(valor) AS debit FROM venda WHERE pdv_id = :pdvId AND `status` = :status
         ", [
             'pdvId' => $pdvId,
-            'status' => StatusVenda::CANCELADO->value,
-            'quitado' => 0,
+            'status' => StatusVenda::AGUARDANDO->value,
         ]);
         return (float)current($debit)->debit;
     }
