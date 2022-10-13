@@ -16,6 +16,7 @@ class ProdutosVenda extends Model
         'id',
         'venda_id',
         'produto_id',
+        'name',
         'quantidade',
         'valor_unitario',
         'valor_total',

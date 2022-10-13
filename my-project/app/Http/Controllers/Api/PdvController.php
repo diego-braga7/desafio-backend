@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class   PdvController extends AbstractRestController implements IRestController
+class PdvController extends AbstractRestController implements IRestController
 {
     private AbstractRestService $create;
     private AbstractRestService $update;
